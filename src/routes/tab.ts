@@ -1,0 +1,94 @@
+
+import * as Router from 'koa-router';
+
+import { Itab } from '../interfaces/tab';
+import { Tab } from '../controller/tab';
+
+import * as util from 'util';
+import * as jwt from 'jsonwebtoken';
+const verify = util.promisify(jwt.verify);
+
+const router = new Router();
+
+router.get('/tabs', async (ctx) => {
+    console.log('进入tabs');
+    const result = await Tab.tabs();
+    console.log(result);
+    ctx.body = {
+        msg: '查找成功',
+        data: result,
+        code: 0,
+    };
+});
+
+router.post('/tab', async (ctx) => {
+    const tab: Itab = ctx.request.body;
+    let token: string = ctx.header.authorization;  // 获取jwt
+    token = token.substr(7);
+    const payload: any = await verify(token, 'calculator jwt'); // 解密，获取payload
+    const result = await Tab.addTab(tab, payload.name);
+    if (result) {
+        ctx.body = {
+            msg: '添加成功',
+            code: 0,
+        };
+    } else {
+        ctx.body = {
+            msg: '添加失败',
+            code: 0,
+        };
+    }
+});
+router.delete('/tab', async (ctx) => {
+    const tab: Itab = ctx.request.body;
+    const result = await Tab.deleteTab(tab);
+    if (result) {
+        ctx.body = {
+            msg: '删除成功',
+            code: 0,
+        };
+    } else {
+        ctx.body = {
+            msg: '删除失败',
+            code: 0,
+        };
+    }
+});
+router.get('/**', async (ctx) => {
+    console.log(ctx.request.url);
+    ctx.body = {
+        msg: '删除成功',
+        data: ctx.request.url,
+        code: 0,
+    };
+});
+// router.put('/article', async (ctx) => {
+//     const machine: any = ctx.request.body;
+//     const result = await UpdateMachine.updateMachine(machine.oldMachine, machine.newMachine);
+//     ctx.body = {
+//         msg: '修改成功',
+//         data: result,
+//         code: 0,
+//     };
+// });
+
+// router.get('/articleCount', async (ctx) => {
+//     const result = await FindMachineCount.findMachineCount();
+//     ctx.body = {
+//         msg: '查找成功',
+//         data: result,
+//         code: 0,
+//     };
+// });
+
+// router.get('/articleList', async (ctx) => {
+//     const article: IarticleList = ctx.request.query;
+//     const result = await Article.ArticleList(article);
+//     ctx.body = {
+//         msg: '查找成功',
+//         data: result,
+//         code: 0,
+//     };
+// });
+
+export default router;
