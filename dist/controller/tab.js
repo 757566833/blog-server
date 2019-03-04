@@ -4,7 +4,6 @@ const tab_1 = require("../model/tab");
 const user_1 = require("../model/user");
 class Tab {
     static async tabs() {
-        console.log('tabs的查找方法');
         const Tabs = await tab_1.tab.find();
         return Tabs;
     }

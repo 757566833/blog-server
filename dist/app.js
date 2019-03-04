@@ -10,7 +10,6 @@ const mongoose = require("mongoose");
 const path = require("path");
 const token_1 = require("./config/token");
 const route_1 = require("./routes/route");
-console.log(token_1.secret);
 mongoose.connect('mongodb://127.0.0.1:27017/blog', { useNewUrlParser: true });
 const app = new Koa();
 app.use(bodyParser());
@@ -41,7 +40,6 @@ app.use(jwtKoa({
     path: [/\/login/, /\/register/, /\/get\S{0,100}/],
     method: ['OPTIONS', 'GET'],
 }));
-console.log('11');
 app.use(route_1.default.routes()).use(route_1.default.allowedMethods());
 app.listen(10002);
 //# sourceMappingURL=app.js.map

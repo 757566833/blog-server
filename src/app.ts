@@ -8,7 +8,6 @@ import * as mongoose from 'mongoose';
 import * as path from 'path';
 import { secret } from './config/token';
 import router from './routes/route';
-console.log(secret);
 mongoose.connect('mongodb://127.0.0.1:27017/blog', {useNewUrlParser: true});
 
 const app = new Koa();
@@ -41,6 +40,5 @@ app.use(jwtKoa({
     path: [/\/login/, /\/register/, /\/get\S{0,100}/],
     method: ['OPTIONS', 'GET'],
 }));
-console.log('11');
 app.use(router.routes()).use(router.allowedMethods());
 app.listen(10002);

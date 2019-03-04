@@ -7,7 +7,6 @@ export class Register {
             const newUser = new user(json);
             // 这里缺一个存储失败的判断
             const result = await newUser.save();
-            console.log(result);
             if (result._id) {
                 return 0;
             } else {

@@ -40,15 +40,15 @@ router.post('/article', async (ctx) => {
 //         code: 0,
 //     };
 // });
-// router.put('/article', async (ctx) => {
-//     const machine: any = ctx.request.body;
-//     const result = await UpdateMachine.updateMachine(machine.oldMachine, machine.newMachine);
-//     ctx.body = {
-//         msg: '修改成功',
-//         data: result,
-//         code: 0,
-//     };
-// });
+router.put('/article', async (ctx) => {
+    const body: { json: Iarticle, _id: string } = ctx.request.body;
+    const result = await Article.updateArticle(body._id, body.json);
+    ctx.body = {
+        msg: '修改成功',
+        data: result,
+        code: 0,
+    };
+});
 
 // router.get('/articleCount', async (ctx) => {
 //     const result = await FindMachineCount.findMachineCount();

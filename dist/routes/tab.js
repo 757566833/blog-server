@@ -7,9 +7,7 @@ const jwt = require("jsonwebtoken");
 const verify = util.promisify(jwt.verify);
 const router = new Router();
 router.get('/tabs', async (ctx) => {
-    console.log('进入tabs');
     const result = await tab_1.Tab.tabs();
-    console.log(result);
     ctx.body = {
         msg: '查找成功',
         data: result,

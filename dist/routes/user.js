@@ -48,7 +48,6 @@ router.post('/register', async (ctx) => {
     if (user.password && user.user) {
         user.password = md5(user.password + salt_1.default);
         const result = await register_1.Register.register(user);
-        console.log('result', result);
         const userToken = {
             name: user.user,
         };
@@ -90,7 +89,6 @@ router.post('/register', async (ctx) => {
 router.get('/hello', async (ctx) => {
     const token = ctx.header.authorization; // 获取jwt
     let payload;
-    console.log(token);
     if (token && token !== 'undefined') {
         payload = await verify(token, '123'); // 解密，获取payload
         ctx.body = {

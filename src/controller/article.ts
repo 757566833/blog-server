@@ -9,9 +9,9 @@ export class Article {
         const newArticle = new article(json);
         newArticle.save();
     }
-    public static async updateArticle(json: Iarticle) {
-        const newArticle = new article(json);
-        newArticle.save();
+    public static async updateArticle(id: string, json: Iarticle) {
+        const ArticleOne: Iarticle = await article.findByIdAndUpdate(id, json);
+        return ArticleOne;
     }
     public static async deleteArticle(json: Iarticle) {
         const newArticle = new article(json);

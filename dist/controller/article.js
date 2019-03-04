@@ -10,9 +10,9 @@ class Article {
         const newArticle = new article_1.article(json);
         newArticle.save();
     }
-    static async updateArticle(json) {
-        const newArticle = new article_1.article(json);
-        newArticle.save();
+    static async updateArticle(id, json) {
+        const ArticleOne = await article_1.article.findByIdAndUpdate(id, json);
+        return ArticleOne;
     }
     static async deleteArticle(json) {
         const newArticle = new article_1.article(json);

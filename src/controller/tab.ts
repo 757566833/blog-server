@@ -6,7 +6,6 @@ import { user } from '../model/user';
 
 export class Tab {
     public static async tabs(): Promise<Itab[]> {
-        console.log('tabs的查找方法');
         const Tabs: Itab[] = await tab.find();
         return Tabs;
     }
