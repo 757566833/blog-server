@@ -14,7 +14,8 @@ class Article {
         // const ArticleOne: Iarticle = await article.findByIdAndUpdate(id, json);
         const ArticleOne = await article_1.article.findById(id);
         if (author === ArticleOne.author) {
-            return ArticleOne;
+            const result = await article_1.article.findByIdAndUpdate(id, json);
+            return result;
         }
         else {
             return undefined;

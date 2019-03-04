@@ -13,7 +13,8 @@ export class Article {
         // const ArticleOne: Iarticle = await article.findByIdAndUpdate(id, json);
         const ArticleOne: Iarticle = await article.findById(id);
         if (author === ArticleOne.author) {
-            return ArticleOne;
+            const result: Iarticle = await article.findByIdAndUpdate(id, json);
+            return result;
         } else {
             return undefined;
         }
