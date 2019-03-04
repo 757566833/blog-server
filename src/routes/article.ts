@@ -42,12 +42,25 @@ router.post('/article', async (ctx) => {
 // });
 router.put('/article', async (ctx) => {
     const body: { json: Iarticle, _id: string } = ctx.request.body;
-    const result = await Article.updateArticle(body._id, body.json);
-    ctx.body = {
-        msg: '修改成功',
-        data: result,
-        code: 0,
-    };
+    let token: string = ctx.header.authorization;  // 获取jwt
+    token = token.substr(7);
+    const payload: any = await verify(token, 'calculator jwt'); // 解密，获取payload
+    const author = payload.name;
+    const result: Iarticle = await Article.updateArticle(body._id, body.json, author);
+    if (result._id) {
+        ctx.body = {
+            msg: '修改成功',
+            data: result,
+            code: 0,
+        };
+    } else {
+        ctx.body = {
+            msg: '修改失败，没有权限',
+            data: '',
+            code: 0,
+        };
+    }
+
 });
 
 // router.get('/articleCount', async (ctx) => {
