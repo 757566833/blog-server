@@ -4,6 +4,7 @@ const Koa = require("koa");
 const bodyParser = require("koa-bodyparser");
 const jwtKoa = require("koa-jwt");
 const serve = require("koa-static");
+// import * as views from 'koa-views';
 const cors = require("koa2-cors");
 const mongoose = require("mongoose");
 const path = require("path");

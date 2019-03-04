@@ -22,8 +22,9 @@ class Article {
         if (json.search) {
             json.title = new RegExp(json.search, 'g');
         }
+        json.type = new RegExp(json.type, 'g');
         delete json.search;
-        const ArticleList = await article_1.article.find(json, 'type title subTitle summary author');
+        const ArticleList = await article_1.article.find(json, 'type title subTitle summary author createdAt');
         return ArticleList;
     }
 }

@@ -2,7 +2,7 @@ import * as Koa from 'koa';
 import * as bodyParser from 'koa-bodyparser';
 import * as jwtKoa from 'koa-jwt';
 import * as serve from 'koa-static';
-import * as views from 'koa-views';
+// import * as views from 'koa-views';
 import * as cors from 'koa2-cors';
 import * as mongoose from 'mongoose';
 import * as path from 'path';

@@ -25,7 +25,7 @@ router.post('/login', async (ctx) => {
                 msg: '登录成功',
                 code: 0,
                 token,
-                data: JSON.stringify({ isAdmin: result.isAdmin }),
+                data: { isAdmin: result.isAdmin },
             };
         }
         else {
@@ -49,17 +49,34 @@ router.post('/register', async (ctx) => {
         user.password = md5(user.password + salt_1.default);
         const result = await register_1.Register.register(user);
         console.log('result', result);
-        if (result === 'success') {
-            ctx.body = {
-                msg: '注册成功',
-                code: 0,
-            };
-        }
-        else {
-            ctx.body = {
-                msg: '用户名已存在',
-                code: -1,
-            };
+        const userToken = {
+            name: user.user,
+        };
+        const token = `Bearer ${jwt.sign(userToken, token_1.secret, { expiresIn: '24h' })}`;
+        switch (result) {
+            case 0:
+                ctx.body = {
+                    msg: '注册成功',
+                    code: 0,
+                    token,
+                };
+                break;
+            case -1:
+                ctx.body = {
+                    msg: '用户名已存在',
+                    code: -1,
+                    token,
+                };
+                break;
+            case -2:
+                ctx.body = {
+                    msg: '注册失败',
+                    code: -2,
+                    token,
+                };
+                break;
+            default:
+                break;
         }
     }
     else {

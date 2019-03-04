@@ -13,4 +13,5 @@ export interface Iarticle extends Document {
 export interface IarticleList extends Document {
     search?: string;
     title?: RegExp;
+    type?: RegExp;
 }
